@@ -78,7 +78,57 @@ def collect_sign(label: str, target_count: int = 100, filepath: str = "data/raw/
     cv2.destroyAllWindows()
     hands.close()
     print(f"Finished! Recorded {saved_count} samples for '{label}'.")
+    return saved_count
+
+
+SIGNS = [
+    "alif",
+    "bay",
+    "tay",
+    "say",
+    "chay",
+    "daal",
+    "ray",
+    "ain",
+    "laam",
+    "yae",
+]
+
+
+def main():
+    """Interactive command-line menu for collecting PSL alphabet dataset."""
+    while True:
+        print("\n===============================")
+        print("   PSL DATASET COLLECTOR MENU   ")
+        print("===============================")
+        for idx, sign in enumerate(SIGNS, 1):
+            print(f"{idx:2d}. {sign}")
+        print(" A. Record ALL 10 signs in sequence")
+        print(" Q. Quit")
+
+        choice = input("\nSelect an option (1-10, A, or Q): ").strip().upper()
+
+        if choice == "Q":
+            print("Exiting data collector. Happy learning!")
+            break
+
+        if choice == "A":
+            count_input = input("How many samples per sign? (Press Enter for default 20): ").strip()
+            count = int(count_input) if count_input.isdigit() else 20
+            for sign in SIGNS:
+                input(f"\n--> Prepare hand for '{sign}'. Press ENTER to start recording...")
+                collect_sign(sign, target_count=count)
+            print("\nSuccessfully finished recording sequence for all signs!")
+            continue
+
+        if choice.isdigit() and 1 <= int(choice) <= len(SIGNS):
+            selected_sign = SIGNS[int(choice) - 1]
+            count_input = input(f"How many samples for '{selected_sign}'? (Press Enter for default 20): ").strip()
+            count = int(count_input) if count_input.isdigit() else 20
+            collect_sign(selected_sign, target_count=count)
+        else:
+            print("Invalid selection. Please choose a number from 1 to 10, A, or Q.")
+
 
 if __name__ == "__main__":
-    # Test recording 5 samples of 'alif'
-    collect_sign("alif", target_count=5)
+    main()
