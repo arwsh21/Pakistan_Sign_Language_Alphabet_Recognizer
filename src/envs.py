@@ -1,0 +1,2 @@
+"""Camera and recorded input."""
+
