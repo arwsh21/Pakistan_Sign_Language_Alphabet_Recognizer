@@ -29,3 +29,7 @@ TEST_SIZE = 0.2
 
 # Path to the raw dataset CSV
 RAW_DATA_PATH = "data/raw/psl_data.csv"
+
+# Output directories
+FIGURES_DIR = "outputs/figures"
+RESULTS_DIR = "outputs/results"

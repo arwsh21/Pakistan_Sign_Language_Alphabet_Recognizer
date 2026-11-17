@@ -161,7 +161,7 @@ def plot_confusion_matrix(
       xticklabels=labels,
       yticklabels=labels,
   )
-  *
+  
   plt.xlabel("Predicted Sign", fontsize=12, fontweight="bold")
   plt.ylabel("True Sign", fontsize=12, fontweight="bold")
   plt.title("Confusion Matrix (SVM)", fontsize=14, fontweight="bold")
@@ -177,14 +177,19 @@ def plot_learning_curve(
 ):
   """Chart 3: Shows learning progression vs dataset size."""
   os.makedirs(os.path.dirname(output_path), exist_ok=True)
-  train_sizes, train_scores, test_scores = learning_curve(
-      model.model,
-      X,
-      y,
-      cv=5,
-      train_sizes=np.linspace(0.2, 1.0, 5),
-      random_state=42,
-  )
+  curve_data = learning_curve(
+        model.model,
+        X,
+        y,
+        cv=5,
+        train_sizes=np.linspace(0.2, 1.0, 5),
+        random_state=42,
+    )
+  train_sizes, train_scores, test_scores = (
+        curve_data[0],
+        curve_data[1],
+        curve_data[2],
+    )
   train_mean = np.mean(train_scores, axis=1) * 100
   test_mean = np.mean(test_scores, axis=1) * 100
 
