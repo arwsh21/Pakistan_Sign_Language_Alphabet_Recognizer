@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.config import CONFIDENCE_THRESHOLD, HOLD_FRAMES, MEMORY_SIZE
 
 URDU_CHAR_MAP = {
+    # Initial 10 signs
     "alif": "ا",
     "bay": "ب",
     "tay": "ت",
@@ -19,7 +20,35 @@ URDU_CHAR_MAP = {
     "ray": "ر",
     "ain": "ع",
     "laam": "ل",
-    "yae": "ی",
+    "yae": "ے",
+    # Extended alphabet signs
+    "pay": "پ",
+    "hey": "ح",
+    "khey": "خ",
+    "ddal": "ڈ",
+    "zhe": "ژ",
+    "seen": "س",
+    "zuaad": "ض",
+    "zoe": "ظ",
+    "fey": "ف",
+    "qaaf": "ق",
+    "kaaf": "ک",
+    "gaaf": "گ",
+    "meem": "م",
+    "noon": "ن",
+    "wao": "و",
+    "choti_yae": "ی",
+    # Final batch (excluding motion signs)
+    "ttay": "ٹ",
+    "zaal": "ذ",
+    "zay": "ز",
+    "sheen": "ش",
+    "suaad": "ص",
+    "toyen": "ط",
+    "ghain": "غ",
+    "noon_ghunna": "ں",
+    "do_chashmi_hey": "ھ",
+    "hamza": "ء",
 }
 
 

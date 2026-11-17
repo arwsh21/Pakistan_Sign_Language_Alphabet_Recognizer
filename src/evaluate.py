@@ -238,13 +238,14 @@ if __name__ == "__main__":
   # 2. Chart 1: Accuracy Bar Chart
   plot_accuracy_comparison(raw_results)
 
-  # 3. Chart 2: Confusion Matrix
+  # 3. Chart 2: Confusion Matrix (dynamically adapts to classes present in data)
+  active_labels = [s for s in SIGNS if s in y]
   X_train, X_test, y_train, y_test = train_test_split(
       X, y, test_size=TEST_SIZE, random_state=42, stratify=y
   )
   svm = SVMRecognizer()
   svm.fit(X_train, y_train)
-  plot_confusion_matrix(svm, X_test, y_test, labels=SIGNS)
+  plot_confusion_matrix(svm, X_test, y_test, labels=active_labels)
 
   # 4. Chart 3: Learning Curve
   plot_learning_curve(svm, X, y)

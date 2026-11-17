@@ -82,31 +82,65 @@ def collect_sign(label: str, target_count: int = 100, filepath: str = "data/raw/
 
 
 SIGNS = [
-    "alif",
-    "bay",
-    "tay",
-    "say",
-    "chay",
-    "daal",
-    "ray",
-    "ain",
-    "laam",
-    "yae",
+    # Batch 1 (10 signs)
+    "alif", "bay", "tay", "say", "chay", "daal", "ray", "ain", "laam", "yae",
+    # Batch 2 (16 signs)
+    "pay", "hey", "khey", "ddal", "zhe", "seen", "zuaad", "zoe", "fey", "qaaf",
+    "kaaf", "gaaf", "meem", "noon", "wao", "choti_yae",
+    # Batch 3 (10 signs - excluding motion signs)
+    "ttay", "zaal", "zay", "sheen", "suaad", "toyen", "ghain", "noon_ghunna",
+    "do_chashmi_hey", "hamza",
 ]
+
+URDU_MAP = {
+    "alif": "ا", "bay": "ب", "tay": "ت", "say": "ث", "chay": "چ",
+    "daal": "د", "ray": "ر", "ain": "ع", "laam": "ل", "yae": "ے",
+    "pay": "پ", "hey": "ح", "khey": "خ", "ddal": "ڈ", "zhe": "ژ",
+    "seen": "س", "zuaad": "ض", "zoe": "ظ", "fey": "ف", "qaaf": "ق",
+    "kaaf": "ک", "gaaf": "گ", "meem": "م", "noon": "ن", "wao": "و",
+    "choti_yae": "ی",
+    "ttay": "ٹ", "zaal": "ذ", "zay": "ز", "sheen": "ش", "suaad": "ص",
+    "toyen": "ط", "ghain": "غ", "noon_ghunna": "ں", "do_chashmi_hey": "ھ",
+    "hamza": "ء",
+}
+
+
+def _get_recorded_counts(filepath):
+    """Returns a dictionary of sample counts per label from the CSV."""
+    counts = {}
+    if os.path.exists(filepath):
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                reader = csv.reader(f)
+                header = next(reader, None)
+                for row in reader:
+                    if row:
+                        lbl = row[-1]
+                        counts[lbl] = counts.get(lbl, 0) + 1
+        except Exception:
+            pass
+    return counts
 
 
 def main():
     """Interactive command-line menu for collecting PSL alphabet dataset."""
     while True:
-        print("\n===============================")
-        print("   PSL DATASET COLLECTOR MENU   ")
-        print("===============================")
+        counts = _get_recorded_counts("data/raw/psl_data.csv")
+        total_samples = sum(counts.values())
+
+        print("\n=======================================================")
+        print(f"       PSL DATASET COLLECTOR MENU (Total: {total_samples} samples)       ")
+        print("=======================================================")
         for idx, sign in enumerate(SIGNS, 1):
-            print(f"{idx:2d}. {sign}")
-        print(" A. Record ALL 10 signs in sequence")
+            char = URDU_MAP.get(sign, "")
+            n = counts.get(sign, 0)
+            status = f"({n:2d} samples)" if n > 0 else " [NEW]"
+            print(f"{idx:2d}. {sign:<15} ({char})  {status}")
+        print("-------------------------------------------------------")
+        print(" A. Record ALL signs in sequence")
         print(" Q. Quit")
 
-        choice = input("\nSelect an option (1-10, A, or Q): ").strip().upper()
+        choice = input(f"\nSelect an option (1-{len(SIGNS)}, A, or Q): ").strip().upper()
 
         if choice == "Q":
             print("Exiting data collector. Happy learning!")
@@ -116,18 +150,18 @@ def main():
             count_input = input("How many samples per sign? (Press Enter for default 20): ").strip()
             count = int(count_input) if count_input.isdigit() else 20
             for sign in SIGNS:
-                input(f"\n--> Prepare hand for '{sign}'. Press ENTER to start recording...")
+                input(f"\n--> Prepare hand for '{sign}' ({URDU_MAP.get(sign, '')}). Press ENTER to start recording...")
                 collect_sign(sign, target_count=count)
             print("\nSuccessfully finished recording sequence for all signs!")
             continue
 
         if choice.isdigit() and 1 <= int(choice) <= len(SIGNS):
             selected_sign = SIGNS[int(choice) - 1]
-            count_input = input(f"How many samples for '{selected_sign}'? (Press Enter for default 20): ").strip()
+            count_input = input(f"How many samples for '{selected_sign}' ({URDU_MAP.get(selected_sign, '')})? (Press Enter for default 20): ").strip()
             count = int(count_input) if count_input.isdigit() else 20
             collect_sign(selected_sign, target_count=count)
         else:
-            print("Invalid selection. Please choose a number from 1 to 10, A, or Q.")
+            print(f"Invalid selection. Please choose a number from 1 to {len(SIGNS)}, A, or Q.")
 
 
 if __name__ == "__main__":

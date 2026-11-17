@@ -164,15 +164,24 @@ def main_menu():
         print("\n==========================================")
         print("  PAKISTAN SIGN LANGUAGE RECOGNIZER (PSL) ")
         print("==========================================")
-        print(" 1. Run Live Recognition (Webcam)")
-        print(" 2. Run 20-Seed Evaluation & Generate Charts")
-        print(" 3. Exit")
+        print(" 1. Launch Modern Desktop App (CustomTkinter GUI)")
+        print(" 2. Run Lightweight OpenCV Camera Window")
+        print(" 3. Run 20-Seed Evaluation & Generate Charts")
+        print(" 4. Exit")
         print("==========================================")
 
-        choice = input("Enter your choice (1-3): ").strip()
+        choice = input("Enter your choice (1-4): ").strip()
         if choice == "1":
-            run_live_recognition()
+            try:
+                from src.ui import launch_gui
+                launch_gui()
+            except Exception as e:
+                print(f"[ERROR launching GUI] {e}")
+                print("Falling back to OpenCV camera mode...")
+                run_live_recognition()
         elif choice == "2":
+            run_live_recognition()
+        elif choice == "3":
             # Check file exists before attempting to load (fulfills guideline requirement)
             if not os.path.exists(RAW_DATA_PATH):
                 print(f"\n[ERROR] Dataset file not found at '{RAW_DATA_PATH}'.")
@@ -181,11 +190,11 @@ def main_menu():
             X, y = load_dataset(RAW_DATA_PATH)
             df_res, _ = run_experiments(X, y)
             print(df_res.to_string(index=False))
-        elif choice == "3":
+        elif choice == "4":
             print("Exiting. Happy signing!")
             break
         else:
-            print("Invalid choice, please enter 1, 2, or 3.")
+            print("Invalid choice, please enter 1, 2, 3, or 4.")
 
 
 if __name__ == "__main__":
