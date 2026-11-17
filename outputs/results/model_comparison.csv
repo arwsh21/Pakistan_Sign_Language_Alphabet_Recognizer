@@ -1,0 +1,5 @@
+Model,Accuracy (Mean ± Std %),Macro F1 (Mean ± Std %),Train Time (ms),Pred Time (μs/sample)
+Baseline,12.20 ± 0.00%,2.17 ± 0.00%,0.35,2.27
+KNN,98.78 ± 1.68%,98.73 ± 1.75%,0.72,427.35
+SVM,98.78 ± 1.68%,98.73 ± 1.75%,18.84,31.57
+Random Forest,98.54 ± 1.66%,98.48 ± 1.73%,366.02,333.06

@@ -46,30 +46,3 @@ class BaselineRecognizer(BaseRecognizer):
 
   def build(self):
     return DummyClassifier(strategy="most_frequent")
-
-
-if __name__ == "__main__":
-  from sklearn.model_selection import train_test_split
-  from src.features import load_dataset
-
-  # 1. Load normalised features
-  X, y = load_dataset("data/raw/psl_data.csv")
-
-  # 2. Split train (80%) and test (20%)
-  X_train, X_test, y_train, y_test = train_test_split(
-      X, y, test_size=0.2, random_state=SEED, stratify=y
-  )
-
-  # 3. Create instances of all 4 models
-  models = [
-      ("Baseline (Dummy)", BaselineRecognizer()),
-      ("KNN", KNNRecognizer()),
-      ("Support Vector Machine", SVMRecognizer()),
-      ("Random Forest", ForestRecognizer()),
-  ]
-
-  print("\n=== Model Comparison (Normalized Features) ===")
-  for name, clf in models:
-    clf.fit(X_train, y_train)
-    acc = clf.score(X_test, y_test)
-    print(f"{name:25s}: {acc * 100:.2f}%")    

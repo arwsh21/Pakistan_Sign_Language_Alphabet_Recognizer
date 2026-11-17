@@ -27,3 +27,5 @@ HOLD_FRAMES = 15
 # Test dataset split fraction
 TEST_SIZE = 0.2
 
+# Path to the raw dataset CSV
+RAW_DATA_PATH = "data/raw/psl_data.csv"
