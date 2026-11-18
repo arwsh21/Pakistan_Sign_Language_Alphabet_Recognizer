@@ -31,7 +31,8 @@ def run_live_recognition():
     X, y = load_dataset(RAW_DATA_PATH)
     model = SVMRecognizer()
     model.fit(X, y)
-    print(f"[INFO] Model trained successfully on {len(X)} samples across 10 signs!")
+    num_classes = len(np.unique(y))
+    print(f"[INFO] Model trained successfully on {len(X)} samples across {num_classes} signs!")
 
     # Set up AI Agent and WordBuilder
     agent = SignAgent(model=model, memory_size=MEMORY_SIZE, confidence_threshold=CONFIDENCE_THRESHOLD)

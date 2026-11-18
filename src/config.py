@@ -15,8 +15,8 @@ SVM_C = 10
 # Number of trees in Random Forest
 FOREST_TREES = 200
 
-# Minimum confidence threshold for hand detection
-CONFIDENCE_THRESHOLD = 0.6
+# Minimum confidence threshold for hand detection (adjusted for 31-class probability distribution)
+CONFIDENCE_THRESHOLD = 0.30
 
 # Buffer size for prediction history
 MEMORY_SIZE = 10

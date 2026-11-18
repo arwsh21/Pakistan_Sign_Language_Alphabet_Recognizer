@@ -374,6 +374,8 @@ class PSLApp(ctk.CTk):
     """Starts or stops the live webcam feed."""
     if not self.is_camera_running:
       try:
+        # Ensure latest dataset samples are loaded into the model
+        self._init_pipeline()
         self.env = CameraEnvironment(0)
         self.is_camera_running = True
         self.btn_camera.configure(
@@ -463,11 +465,17 @@ class PSLApp(ctk.CTk):
   def _update_hud(self, sign, conf, locked):
     """Updates cards for detected sign, hold bar, and words with high contrast."""
     # Detected Sign Card
-    if sign in ("no sign", "unsure"):
+    if sign == "no sign":
       self.lbl_detected_sign.configure(text="—", text_color=COLOR_STATUS_IDLE)
       self.lbl_confidence.configure(
-          text=f"Status: {sign.capitalize()}",
+          text="Status: No Hand",
           text_color=COLOR_SUBTITLE,
+      )
+    elif sign == "unsure":
+      self.lbl_detected_sign.configure(text="—", text_color=COLOR_STATUS_IDLE)
+      self.lbl_confidence.configure(
+          text=f"Status: Unsure ({conf*100:.0f}%)",
+          text_color=COLOR_STATUS_HOLDING,
       )
     else:
       # Display Roman name + native Urdu character
