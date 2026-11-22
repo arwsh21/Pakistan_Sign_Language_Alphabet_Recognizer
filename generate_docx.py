@@ -76,7 +76,7 @@ def create_report_docx():
   author_data = [
       ("Student Name", "Areesha Ahmad"),
       ("Roll Number & Section", "24K-3043 (BSE-5B)"),
-      ("Project Repository", "https://github.com/arwsh21/urdu-sign-lang"),
+      ("Project Repository", "https://github.com/arwsh21/Pakistan_Sign_Language_Alphabet_Recognizer"),
   ]
 
   for row_idx, (k, v) in enumerate(author_data):
@@ -305,7 +305,7 @@ def create_report_docx():
           doc.add_picture(str(fig2_path), width=Inches(5.8))
           p_cap2 = doc.add_paragraph()
           p_cap2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-          r_cap2 = p_cap2.add_run("Figure 2: Multi-Class Confusion Matrix for SVM (31 Alphabet Signs)")
+          r_cap2 = p_cap2.add_run("Figure 2: Multi-Class Confusion Matrix for SVM")
           r_cap2.font.italic = True
           r_cap2.font.size = Pt(9.5)
           r_cap2.font.color.rgb = RGBColor(100, 100, 100)

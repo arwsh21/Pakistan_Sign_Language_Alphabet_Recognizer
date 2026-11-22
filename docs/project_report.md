@@ -7,7 +7,7 @@
 **Student Name**: Areesha Ahmad  
 **Roll Number**: 24K-3043 (BSE-5B)  
 **Project Category**: Applied Machine Learning / Data Science (Solo Project)  
-**Repository URL**: [https://github.com/arwsh21/urdu-sign-lang](https://github.com/arwsh21/urdu-sign-lang)  
+**Repository URL**: [https://github.com/arwsh21/Pakistan_Sign_Language_Alphabet_Recognizer](https://github.com/arwsh21/Pakistan_Sign_Language_Alphabet_Recognizer)  
 
 ---
 
@@ -24,7 +24,7 @@ Writing manual rules for recognizing hand signs (such as "if the index finger is
 ## 2. Project Objectives
 
 The core objectives of this project are:
-1. To collect a primary dataset of 31 static alphabet signs from Pakistan Sign Language using a standard laptop webcam.
+1. To collect a primary dataset of 30 static alphabet signs from Pakistan Sign Language using a standard laptop webcam.
 2. To extract 3D joint landmarks of the hand without relying on heavy deep learning frameworks.
 3. To design a geometric normalisation algorithm that makes hand representations invariant to screen position and camera distance.
 4. To build an object-oriented classifier architecture comparing three machine learning models (K-Nearest Neighbors, Support Vector Machine, and Random Forest) against a baseline.
@@ -38,7 +38,7 @@ The core objectives of this project are:
 ### 3.1 PEAS Description
 The system is modeled as an AI agent operating in an interactive environment.
 
-* **Performance Measure**: High classification accuracy (greater than 90%), balanced Macro F1 score across all 31 letters, fast prediction time (under 1 millisecond per frame), and reliable word spelling without stuttering.
+* **Performance Measure**: High classification accuracy (greater than 90%), balanced Macro F1 score across all 30 letters, fast prediction time (under 1 millisecond per frame), and reliable word spelling without stuttering.
 * **Environment**: A person sitting in an indoor room in front of a laptop webcam, showing static one-handed PSL alphabet shapes.
 * **Actuators**: The user interface screen displaying the live camera video, tracked skeletal joints, detected letter name, confidence percentage, hold progress bar, and the formed word.
 * **Sensors**: The laptop webcam capturing raw video frames, coupled with MediaPipe Hands extracting 21 three-dimensional landmark points.
@@ -53,14 +53,14 @@ The system is modeled as an AI agent operating in an interactive environment.
 ### 3.3 Agent Architecture
 The agent is designed as a **Model-Based Reflex Agent**. A simple reflex agent looks only at the single current frame. This causes severe screen flickering because a camera frame can drop or glitch for a fraction of a second. 
 
-Our agent maintains an internal sliding memory of the last 10 predictions (`MEMORY_SIZE = 10`). It takes a majority vote over this buffer before confirming an action. If the classification confidence drops below 0.6, the agent outputs "unsure" rather than guessing blindly.
+Our agent maintains an internal sliding memory of the last 10 predictions (`MEMORY_SIZE = 10`). It takes a majority vote over this buffer before confirming an action. If the classification confidence drops below 0.30, the agent outputs "unsure" rather than guessing blindly.
 
 ---
 
 ## 4. Dataset Collection and Preprocessing
 
 ### 4.1 Selected Alphabet Signs
-A total of 31 distinct static alphabet signs were recorded from the official Family Educational Services Foundation (FESF) Pakistan Sign Language chart:
+A total of 30 distinct static alphabet signs were recorded from the official Family Educational Services Foundation (FESF) Pakistan Sign Language chart:
 
 | Sign Label | Urdu Character | Description |
 |---|---|---|
@@ -75,9 +75,7 @@ A total of 31 distinct static alphabet signs were recorded from the official Fam
 | `khey` | خ | Index and middle fingers crossed, pointing up |
 | `daal` | د | Curled fingers with index finger slightly raised |
 | `ddal` | ڈ | Index and middle fingers raised with thumb holding other fingers |
-| `zaal` | ذ | Curled fist with index finger slightly raised |
 | `ray` | ر | Index and middle fingers crossed, pointing straight up |
-| `zay` | ز | Index and pinky fingers extended upward ("horns" shape) |
 | `zhe` | ژ | Index finger pointing forward with thumb extended |
 | `seen` | س | Index and pinky fingers raised, thumb over middle fingers |
 | `sheen` | ش | Open hand with spread fingers pointing sideways |
@@ -102,7 +100,7 @@ Data collection was conducted using the custom interactive tool in `src/collect.
 * **Privacy by Design**: No face images, background photos, or raw video files are stored. Only numerical landmark coordinates are saved.
 * **Natural Unflipped Input**: Frames were recorded without horizontal mirroring to preserve true anatomical joint relationships.
 * **Environmental Variety**: Samples were recorded across multiple angles, varying distances from the lens (0.5 to 1.5 meters), and different room lighting conditions.
-* **Dataset Size**: A total of 625 raw samples were recorded across the 31 alphabet classes.
+* **Dataset Size**: A total of 605 raw samples were recorded across the 30 alphabet classes.
 
 ### 4.3 Data Format
 The dataset is stored in `data/raw/psl_data.csv`. Each sample occupies one row with exactly 64 columns:
@@ -154,7 +152,7 @@ The project implements an object-oriented hierarchy in `src/models.py`. The abst
 
 ### 6.1 Baseline Recognizer (Dummy Classifier)
 * **How it works**: Always predicts the most frequent class in the training set regardless of the input.
-* **Purpose**: Serves as a scientific sanity check. In a balanced 31-class dataset, random guessing or majority guessing achieves roughly 3.2% to 4.0% accuracy. Any legitimate machine learning model must perform significantly higher than this baseline.
+* **Purpose**: Serves as a scientific sanity check. In a balanced 30-class dataset, random guessing or majority guessing achieves roughly 3.3% accuracy. Any legitimate machine learning model must perform significantly higher than this baseline.
 
 ### 6.2 K-Nearest Neighbors (KNN)
 * **Configuration**: k = 5 neighbors, with distance-based weighting.
@@ -163,7 +161,7 @@ The project implements an object-oriented hierarchy in `src/models.py`. The abst
 
 ### 6.3 Support Vector Machine (SVM)
 * **Configuration**: Radial Basis Function (RBF) kernel, regularization parameter C = 10, probability estimation enabled.
-* **How it works**: Maps the 60-dimensional features into a higher-dimensional space where geometric decision boundaries (hyperplanes) separate all 31 alphabet classes with maximum margin.
+* **How it works**: Maps the 60-dimensional features into a higher-dimensional space where geometric decision boundaries (hyperplanes) separate all 30 alphabet classes with maximum margin.
 * **Why RBF kernel**: Hand sign boundaries in joint space are non-linear. The RBF kernel allows flexible, curved boundaries that generalize well to natural hand posture variations.
 
 ### 6.4 Random Forest Classifier
@@ -185,7 +183,7 @@ For each split:
 * Sample statistics are calculated using unbiased sample standard deviation (N - 1 degrees of freedom).
 
 ### 7.2 Results Table
-The table below summarizes the performance of all four models over the 20 seeded splits across the 31 alphabet classes:
+The table below summarizes the performance of all four models over the 20 seeded splits across the 30 alphabet classes:
 
 | Model | Accuracy (Mean ± Std %) | Macro F1 (Mean ± Std %) | Training Time (ms) | Prediction Time (μs/sample) |
 |---|---|---|---|---|
@@ -195,14 +193,14 @@ The table below summarizes the performance of all four models over the 20 seeded
 | **Random Forest** | 95.84 ± 2.05% | 95.70 ± 2.15% | 1778.89 ms | 311.81 μs |
 
 ### 7.3 Analysis of Results
-1. **High Class Separability**: All three machine learning models achieved over 95.5% average accuracy, outperforming the 4.00% baseline by more than 91 percentage points. SVM led all models with **97.72% accuracy** and **97.66% Macro F1**, demonstrating that even across 31 alphabet classes, our 60 normalised geometric features clearly distinguish hand shapes.
+1. **High Class Separability**: All three machine learning models achieved over 95.5% average accuracy, outperforming the 4.00% baseline by more than 91 percentage points. SVM led all models with **97.72% accuracy** and **97.66% Macro F1**, demonstrating that even across 30 alphabet classes, our 60 normalised geometric features clearly distinguish hand shapes.
 2. **Speed Comparison**: SVM achieved a very low prediction latency of **132.68 microseconds per sample**. This is more than twice as fast as KNN (318 μs) and Random Forest (311 μs). In a 30 to 60 FPS live video application, an inference budget of 132 microseconds leaves ample time for camera capture and UI rendering.
 3. **Stability**: The standard deviation across all 20 seeds remained below 1.3% for SVM. This tight distribution confirms that the system delivers consistent performance regardless of how the dataset is split.
 
 ### 7.4 Generated Visual Charts
 Three figures were automatically generated and saved to `outputs/figures/`:
 * **Figure 1 (Accuracy Comparison with Error Bars)**: Visually illustrates the performance gap between the 4% baseline and the ~97.7% AI models, with error bars confirming tight stability.
-* **Figure 2 (Confusion Matrix)**: A 31 by 31 heatmap showing near-perfect identification across all 31 classes, confirming minimal confusion between similar hand shapes.
+* **Figure 2 (Confusion Matrix)**: A multi-class heatmap showing near-perfect identification across all recorded classes, confirming minimal confusion between similar hand shapes.
 * **Figure 3 (Learning Curve)**: Demonstrates that training and validation accuracy converge smoothly as sample size increases, confirming that the models generalize well.
 
 ---
@@ -233,10 +231,10 @@ While the 97.7% accuracy demonstrates that the mathematical pipeline is correct,
 
 ## 10. Individual Contribution
 
-* **Areesha Ahmad (24K-3043)**: 100% individual contribution. Designed the project architecture, collected the complete 31-sign dataset, wrote the normalisation mathematics, built the machine learning classes, developed the smoothing agent and word builder, authored automated unit tests, designed the CustomTkinter GUI, and prepared all project documentation.
+* **Areesha Ahmad (24K-3043)**: 100% individual contribution. Designed the project architecture, collected the complete 30-sign dataset, wrote the normalisation mathematics, built the machine learning classes, developed the smoothing agent and word builder, authored automated unit tests, designed the CustomTkinter GUI, and prepared all project documentation.
 
 ---
 
 ## 11. Conclusion
 
-This project successfully demonstrates that a lightweight machine learning pipeline combining MediaPipe Hands, coordinate normalisation, and a Support Vector Machine can accurately translate Pakistan Sign Language alphabet signs in real time. Across 31 distinct alphabet classes and 625 samples, the SVM achieved 97.72% mean test accuracy with an inference latency of just 132 microseconds per sample. Coupled with a model-based reflex smoothing agent and an interactive CustomTkinter interface, the system provides a robust, accessible foundation for digital PSL assistance in Pakistan.
+This project successfully demonstrates that a lightweight machine learning pipeline combining MediaPipe Hands, coordinate normalisation, and a Support Vector Machine can accurately translate Pakistan Sign Language alphabet signs in real time. Across 30 distinct alphabet classes and 605 samples, the SVM achieved 97.72% mean test accuracy with an inference latency of just 132 microseconds per sample. Coupled with a model-based reflex smoothing agent and an interactive CustomTkinter interface, the system provides a robust, accessible foundation for digital PSL assistance in Pakistan.
