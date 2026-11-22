@@ -62,38 +62,23 @@ Our agent maintains an internal sliding memory of the last 10 predictions (`MEMO
 ### 4.1 Selected Alphabet Signs
 A total of 30 distinct static alphabet signs were recorded from the official Family Educational Services Foundation (FESF) Pakistan Sign Language chart:
 
-| Sign Label | Urdu Character | Description |
-|---|---|---|
-| `alif` | ا | Closed fist with thumb placed alongside the fingers |
-| `bay` | ب | Open flat palm with thumb folded across the palm |
-| `pay` | پ | Index and middle fingers pointing straight downward |
-| `tay` | ت | Sideways facing hand with thumb tucked inward |
-| `ttay` | ٹ | Flat sideways hand with thumb pointing straight up |
-| `say` | ث | Curved claw shape with fingers bent forward |
-| `chay` | چ | Flat sideways horizontal hand |
-| `hey` | ح | Index and middle fingers straight up together |
-| `khey` | خ | Index and middle fingers crossed, pointing up |
-| `daal` | د | Curled fingers with index finger slightly raised |
-| `ddal` | ڈ | Index and middle fingers raised with thumb holding other fingers |
-| `ray` | ر | Index and middle fingers crossed, pointing straight up |
-| `zhe` | ژ | Index finger pointing forward with thumb extended |
-| `seen` | س | Index and pinky fingers raised, thumb over middle fingers |
-| `sheen` | ش | Open hand with spread fingers pointing sideways |
-| `suaad` | ص | Three fingers raised with index, middle, and ring fingers |
-| `zuaad` | ض | Index, middle, and ring fingers raised, thumb over pinky |
-| `toyen` | ط | Index finger pointing straight downward |
-| `zoe` | ظ | Index and middle fingers spread in a forward V shape |
-| `ain` | ع | Sideways hand with thumb pointing upward |
-| `fey` | ف | Closed fist with index finger curled forming a loop with thumb |
-| `qaaf` | ق | Closed fist with thumb wrapped across front |
-| `kaaf` | ک | Hand curved into a distinct C shape |
-| `gaaf` | گ | Curved claw or hook shape facing forward |
-| `laam` | ل | Distinct L shape with index finger up and thumb extended |
-| `meem` | م | Index finger pointing sideways with thumb pointing down |
-| `noon` | ن | Index finger extended pointing straight sideways |
-| `wao` | و | Circle formed by touching index tip to thumb tip |
-| `choti_yae` | ی | Hand curled with thumb and index in a small loop |
-| `yae` | ے | Pinky and thumb extended outward (Y shape) |
+| Sign | Char | Shape Summary | Sign | Char | Shape Summary |
+|---|---|---|---|---|---|
+| `alif` | ا | Fist, thumb alongside fingers | `suaad` | ص | Three fingers raised (index, mid, ring) |
+| `bay` | ب | Flat palm, thumb folded across | `zuaad` | ض | Index, mid, ring raised, thumb on pinky |
+| `pay` | پ | Index and middle fingers pointing down | `toyen` | ط | Index finger pointing straight down |
+| `tay` | ت | Sideways hand, thumb tucked | `zoe` | ظ | Index and middle spread in forward V |
+| `ttay` | ٹ | Sideways hand, thumb pointing up | `ain` | ع | Sideways hand with thumb pointing up |
+| `say` | ث | Curved claw shape, fingers bent | `fey` | ف | Fist, index curled in loop with thumb |
+| `chay` | چ | Flat sideways horizontal hand | `qaaf` | ق | Fist, thumb wrapped across front |
+| `hey` | ح | Index and middle fingers straight up | `kaaf` | ک | Hand curved into distinct C shape |
+| `khey` | خ | Index and middle crossed, pointing up | `gaaf` | گ | Curved claw or hook facing forward |
+| `daal` | د | Curled fingers, index slightly raised | `laam` | ل | Distinct L shape (index up, thumb out) |
+| `ddal` | ڈ | Index and middle raised, thumb on rest | `meem` | م | Index sideways, thumb pointing down |
+| `ray` | ر | Index and middle crossed upright | `noon` | ن | Index extended pointing sideways |
+| `zhe` | ژ | Index forward, thumb extended | `wao` | و | Circle formed by index and thumb tips |
+| `seen` | س | Index and pinky up, thumb on middle | `choti_yae` | ی | Curled hand, thumb and index loop |
+| `sheen` | ش | Open hand with spread fingers sideways | `yae` | ے | Pinky and thumb extended out (Y shape) |
 
 ### 4.2 Recording Rules and Privacy
 Data collection was conducted using the custom interactive tool in `src/collect.py`. The recording process followed strict design constraints:
